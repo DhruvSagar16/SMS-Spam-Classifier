@@ -2,30 +2,12 @@ import streamlit as st
 import pickle
 import string
 import nltk
-import os
 from nltk.corpus import stopwords
 from nltk.stem.porter import PorterStemmer
 
-# Create a persistent NLTK data directory
-nltk_data_dir = os.path.join(os.getcwd(), "nltk_data")
-os.makedirs(nltk_data_dir, exist_ok=True)
-
-# Add the folder to the NLTK search path
-nltk.data.path.append(nltk_data_dir)
-
-# Safe lazy-download function
-def download_nltk_resources():
-    try:
-        nltk.data.find("tokenizers/punkt")
-    except LookupError:
-        nltk.download("punkt", download_dir=nltk_data_dir)
-
-    try:
-        nltk.data.find("corpora/stopwords")
-    except LookupError:
-        nltk.download("stopwords", download_dir=nltk_data_dir)
-
-download_nltk_resources()
+# Download required NLTK resources (works with nltk==3.8.1)
+nltk.download("punkt")
+nltk.download("stopwords")
 
 ps = PorterStemmer()
 
@@ -72,7 +54,4 @@ if st.button('Predict'):
     if result == 1:
         st.header("Spam")
     else:
-
         st.header("Not Spam")
-
-
