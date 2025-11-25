@@ -1,4 +1,4 @@
-mport streamlit as st
+import streamlit as st
 import pickle
 import string
 import nltk
@@ -74,4 +74,5 @@ if st.button('Predict'):
     else:
 
         st.header("Not Spam")
+
 
