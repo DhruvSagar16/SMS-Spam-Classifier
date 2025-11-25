@@ -2,8 +2,20 @@ import streamlit as st
 import pickle
 import string
 import nltk
+import os
 from nltk.corpus import stopwords
 from nltk.stem.porter import PorterStemmer
+
+# Ensure NLTK data gets downloaded in Streamlit Cloud
+nltk_data_dir = os.path.join(os.getcwd(), "nltk_data")
+if not os.path.exists(nltk_data_dir):
+    os.mkdir(nltk_data_dir)
+
+nltk.data.path.append(nltk_data_dir)
+
+# Download required NLTK resources
+nltk.download('punkt', download_dir=nltk_data_dir)
+nltk.download('stopwords', download_dir=nltk_data_dir)
 
 ps = PorterStemmer()
 
@@ -51,4 +63,5 @@ if st.button('Predict'):
     if result == 1:
         st.header("Spam")
     else:
+
         st.header("Not Spam")
